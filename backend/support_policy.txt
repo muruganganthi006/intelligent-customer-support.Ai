@@ -1,0 +1,21 @@
+﻿IntelliSupport AI - Customer Support Policy
+
+1. Ticket Creation
+Customers can create support tickets by providing a subject, description, and priority.
+
+2. Ticket Priority
+Low priority: General questions and minor issues.
+Medium priority: Issues affecting normal application usage.
+High priority: Critical problems that prevent customers from using the application.
+
+3. Ticket Status
+Open: A newly created support ticket.
+In Progress: The support team is working on the issue.
+Resolved: A solution has been provided.
+Closed: The support request has been completed.
+
+4. Support Response
+The support team reviews submitted tickets and provides updates through the application.
+
+5. Account Assistance
+Customers should contact the support team if they experience account access problems.

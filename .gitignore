@@ -31,3 +31,12 @@ npm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+
+# IntelliSupport AI - Generated RAG data
+backend/chroma_db/
+backend/uploads/
+
+# Python cache
+.pytest_cache/
+.mypy_cache/

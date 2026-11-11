@@ -8,6 +8,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine, check_database_connection
 from app.ticket import SupportTicket
 from app.ticket_routes import router as ticket_router
+from app.knowledge_base.routes import router as knowledge_base_router
+
 
 # Load environment variables
 load_dotenv()
@@ -15,12 +17,14 @@ load_dotenv()
 APP_NAME = os.getenv("APP_NAME", "IntelliSupport AI")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
+
 # Initialize FastAPI application
 app = FastAPI(
     title=APP_NAME,
-    description="AI-powered Intelligent Customer Support Platform",
+    description="AI-powered Intelligent Customer Support Platform with RAG Knowledge Base",
     version="1.0.0"
 )
+
 
 # Configure CORS
 app.add_middleware(
@@ -37,8 +41,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Register Support Ticket API
 app.include_router(ticket_router)
+
+
+# Register Knowledge Base API
+app.include_router(knowledge_base_router)
 
 
 # Create database tables when application starts

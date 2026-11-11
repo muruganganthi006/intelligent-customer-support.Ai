@@ -95,3 +95,39 @@ export async function deleteTicket(id: number): Promise<{ message: string }> {
 
   return handleResponse<{ message: string }>(response);
 }
+
+
+export interface KnowledgeSource {
+  filename: string;
+  document_id: string;
+  chunk_index: number;
+  distance: number;
+}
+
+export interface AIAskResponse {
+  question: string;
+  answer: string;
+  sources: KnowledgeSource[];
+  model: string;
+}
+
+export async function askKnowledgeBase(
+  question: string,
+  top_k: number = 3
+): Promise<AIAskResponse> {
+  const response = await fetch(
+    `${API_BASE_URL}/api/knowledge-base/ask`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        question,
+        top_k,
+      }),
+    }
+  );
+
+  return handleResponse<AIAskResponse>(response);
+}
