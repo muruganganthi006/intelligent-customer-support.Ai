@@ -1517,3 +1517,140 @@ main {
     font-size: 9px;
   }
 }
+
+
+/* ==================================
+   AI ROBOT HERO ANIMATION
+================================== */
+
+.ai-hero-3d {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ai-hero-3d canvas {
+  position: absolute !important;
+  inset: 0;
+  z-index: 0;
+}
+
+.ai-robot-container {
+  position: absolute;
+  z-index: 1;
+  top: 42%;
+  left: 50%;
+  width: min(55%, 390px);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: robotFloat 4s ease-in-out infinite;
+}
+
+.ai-robot-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 12px rgba(0, 255, 255, 0.45))
+    drop-shadow(0 0 30px rgba(0, 200, 255, 0.2));
+  animation: robotGlow 3s ease-in-out infinite alternate;
+}
+
+.ai-hero-label {
+  position: absolute;
+  z-index: 2;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+@keyframes robotFloat {
+  0%, 100% {
+    transform: translate(-50%, -48%);
+  }
+  50% {
+    transform: translate(-50%, -54%);
+  }
+}
+
+@keyframes robotGlow {
+  from {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.35));
+  }
+  to {
+    filter: drop-shadow(0 0 28px rgba(0, 255, 255, 0.75));
+  }
+}
+
+@media (max-width: 650px) {
+  .ai-robot-container {
+    width: 75%;
+    top: 42%;
+  }
+
+  .ai-hero-label {
+    bottom: 18px;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-robot-container,
+  .ai-robot-image {
+    animation: none;
+  }
+}
+
+
+.ai-hero-3d {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  overflow: hidden;
+}
+
+.ai-robot-image {
+  display: block;
+  width: min(85%, 420px);
+  height: 350px;
+  object-fit: contain;
+  animation: robotFloat 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 25px rgba(0, 220, 255, 0.65));
+}
+
+.ai-hero-label {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #67e8f9;
+  white-space: nowrap;
+}
+
+.ai-hero-label small {
+  color: #94a3b8;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+@keyframes robotFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
