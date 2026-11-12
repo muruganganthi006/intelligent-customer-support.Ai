@@ -5,23 +5,42 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.database import Base, engine, check_database_connection
+from app.database import (
+    Base,
+    engine,
+    check_database_connection,
+)
+
+# Database models
 from app.ticket import SupportTicket
+from app.user import User
+
+# Existing API routers
 from app.ticket_routes import router as ticket_router
 from app.knowledge_base.routes import router as knowledge_base_router
+
+# Authentication router
+from app.auth.routes import router as auth_router
 
 
 # Load environment variables
 load_dotenv()
 
 APP_NAME = os.getenv("APP_NAME", "IntelliSupport AI")
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+
+FRONTEND_URL = os.getenv(
+    "FRONTEND_URL",
+    "http://localhost:5173"
+)
 
 
 # Initialize FastAPI application
 app = FastAPI(
     title=APP_NAME,
-    description="AI-powered Intelligent Customer Support Platform with RAG Knowledge Base",
+    description=(
+        "AI-powered Intelligent Customer Support Platform "
+        "with Customer, Agent, Admin and RAG Knowledge Base"
+    ),
     version="1.0.0"
 )
 
@@ -50,11 +69,22 @@ app.include_router(ticket_router)
 app.include_router(knowledge_base_router)
 
 
+# Register Authentication API
+app.include_router(auth_router)
+
+
 # Create database tables when application starts
 @app.on_event("startup")
 def create_database_tables():
+
+    # Ensure all imported models are registered
     Base.metadata.create_all(bind=engine)
+
     print("Database tables created successfully")
+    print("Registered tables:")
+
+    for table_name in Base.metadata.tables:
+        print(f"- {table_name}")
 
 
 # Root endpoint
@@ -71,6 +101,7 @@ def root():
 # Backend health check
 @app.get("/api/health")
 def health_check():
+
     try:
         check_database_connection()
 
@@ -82,6 +113,7 @@ def health_check():
         }
 
     except Exception as error:
+
         raise HTTPException(
             status_code=503,
             detail={
